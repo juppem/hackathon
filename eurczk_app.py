@@ -2,6 +2,21 @@ import streamlit as st
 import yfinance as yf
 import pandas as pd
 
+# Vlastní CSS pro úpravu vzhledu
+st.markdown("""
+    <style>
+    .main {
+        background-color: #f5f7fa;
+        color: #003366;
+        font-family: 'Arial', sans-serif;
+    }
+    .stButton>button {
+        background-color: #003366;
+        color: white;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 st.title("Predikce EUR/CZK – Signál pro nákup/prodej")
 
 symbol = "EURCZK=X"
@@ -29,11 +44,12 @@ latest_rsi = data['RSI'].iloc[-1]
 
 st.markdown(f"### 📌 Aktuální RSI: **{latest_rsi:.2f}**")
 
+# Závěrečné doporučení ve stylu šlechtice z 18. století
 if latest_rsi < 30:
     st.success("✅ RSI pod 30: Trh je přeprodaný → Signál k nákupu")
 elif latest_rsi > 70:
     st.error("⚠️ RSI nad 70: Trh je překoupený → Signál k prodeji")
 else:
-    st.info("ℹ️ RSI v neutrálním pásmu → Vyčkávat")
+    st.info("👑 *\"Vážení, dle mého urozeného mínění jest trh v rovnováze. Doporučuji vyčkávat na příhodnější okamžik k akci.\"*")
 
 st.caption("Data: Yahoo Finance (denní interval, 6 měsíců)")
